@@ -1,0 +1,27 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+        default: 'patch'
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python 3.10
+          uses: actions/setup-python@v2
+          with:
+            python-version: 3.10
+        - name: Install dependencies
+          run: make install
+        - name: Release
+          run: |
+            make release version=${{ github.event.inputs.version }}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}

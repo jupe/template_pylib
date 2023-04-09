@@ -1,0 +1,16 @@
+name: PR job
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  static:
+    uses: ./.github/workflows/static.yml
+    secrets: inherit
+
+  tests:
+    uses: ./.github/workflows/tests.yml
+    secrets: inherit

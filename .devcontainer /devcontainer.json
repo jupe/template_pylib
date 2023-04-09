@@ -1,0 +1,8 @@
+{
+  "name": "dev-env",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+  },
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  "waitFor": "postCreateCommand",
+}
