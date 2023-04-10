@@ -1,5 +1,5 @@
 ifeq ($(OS),Windows_NT)
-    ifeq ($(TERM),xterm)
+    ifneq (,$(findstring bash,$(SHELL)))
         MAKE_COMPATIBLE := 1
     else
         MAKE_COMPATIBLE := 0
