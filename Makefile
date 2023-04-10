@@ -1,10 +1,12 @@
 ifeq ($(OS),Windows_NT)
-    PYTHON = python
     VENV_BIN = venv\Scripts
+    PYTHON = ${VENV_BIN}\python
+    PIP = ${VENV_BIN}\pip
     RMRF = del /q /f 2>nul & rmdir /s /q
 else
-    PYTHON = python3
     VENV_BIN = venv/bin
+    PYTHON = ${VENV_BIN}/python
+    PIP = ${VENV_BIN}/pip
     RMRF = rm -rf
 endif
 
@@ -22,22 +24,22 @@ help:
 # install project, but ignore if dependencies are already up to date
 install: venv
 	@echo "Installing project..."
-	$(VENV_BIN)/pip install -e .[dev]
+	$(PIP) install -e .[dev]
 	@echo "Project installed."
 
 run: install
 	@echo "Running project..."
-	$(VENV_BIN)/python -m project
+	$(PYTHON) -m project
 	@echo "Project run."
 
 test: install
 	@echo "Running tests..."
-	$(VENV_BIN)/python -m pytest --cov-config=.coveragerc
+	$(PYTHON) -m pytest --cov-config=.coveragerc
 	@echo "Tests run."
 
 lint: install
 	echo "Running linter..."
-	$(VENV_BIN)/python -m flake8 --config=.flake8
+	$(PYTHON) -m flake8 --config=.flake8
 	@echo "Linter run."
 
 clean:
@@ -60,6 +62,6 @@ _create-venv:
 
 release: install
 	@echo "Releasing project.."
-	$(VENV_BIN)/python setup.py sdist bdist_wheel
-	$(VENV_BIN)/python -m twine upload dist/*
+	$(PYTHON) setup.py sdist bdist_wheel
+	$(PYTHON) -m twine upload dist/*
 	@echo "Project released."
