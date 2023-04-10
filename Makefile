@@ -1,9 +1,3 @@
-ifneq (,$(findstring cmd.exe,$(COMSPEC)))
-    ifeq (,$(findstring bash,$(SHELL)))
-        $(error This Makefile should be run in a Unix-like environment or using Git Bash on Windows)
-    endif
-endif
-
 ifeq ($(OS),Windows_NT)
     VENV_BIN = venv/Scripts
     PYTHON = ${VENV_BIN}/python
