@@ -1,7 +1,21 @@
 ifeq ($(OS),Windows_NT)
-    VENV_BIN = venv\Scripts
-    PYTHON = ${VENV_BIN}\python
-    PIP = ${VENV_BIN}\pip
+    ifeq ($(TERM),xterm)
+        MAKE_COMPATIBLE := 1
+    else
+        MAKE_COMPATIBLE := 0
+    endif
+else
+    MAKE_COMPATIBLE := 1
+endif
+
+ifeq ($(MAKE_COMPATIBLE),0)
+$(error This Makefile should be run in a Unix-like environment or using Git Bash on Windows)
+endif
+
+ifeq ($(OS),Windows_NT)
+    VENV_BIN = venv/Scripts
+    PYTHON = ${VENV_BIN}/python
+    PIP = ${VENV_BIN}/pip
     RMRF = del /q /f 2>nul & rmdir /s /q
 else
     VENV_BIN = venv/bin
