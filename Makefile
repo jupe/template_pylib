@@ -1,15 +1,7 @@
-ifeq ($(OS),Windows_NT)
-    ifneq (,$(findstring bash,$(SHELL)))
-        MAKE_COMPATIBLE := 1
-    else
-        MAKE_COMPATIBLE := 0
+ifneq (,$(findstring cmd.exe,$(COMSPEC)))
+    ifeq (,$(findstring bash,$(SHELL)))
+        $(error This Makefile should be run in a Unix-like environment or using Git Bash on Windows)
     endif
-else
-    MAKE_COMPATIBLE := 1
-endif
-
-ifeq ($(MAKE_COMPATIBLE),0)
-$(error This Makefile should be run in a Unix-like environment or using Git Bash on Windows)
 endif
 
 ifeq ($(OS),Windows_NT)
