@@ -5,7 +5,8 @@ on:
 
 jobs:
     tests:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
+        name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
         strategy:
           fail-fast: false  # keep going if one job fails
           matrix:
@@ -18,6 +19,8 @@ jobs:
           with:
             python-version: ${{ env.PYTHON_VERSION }}
         - name: Install dependencies
+          shell: bash
           run: make install
         - name: Test with pytest
+          shell: bash
           run: make test

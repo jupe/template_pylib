@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.059" timestamp="2023-04-09T22:19:32.140245" hostname="macbook-pro.local"><testcase classname="tests.test_basics" name="test_my_func" time="0.002" /></testsuite></testsuites>

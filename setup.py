@@ -22,14 +22,12 @@ setup(
     ],
     extras_require={
         "dev": [
-            "pytest>=7.3.0",
-            "pytest-cov",
-            "pytest-mock",
-            "pytest-xdist",
-            "pytest-benchmark",
-            "pytest-randomly",
-            "pytest-timeout",
-            "pytest-sugar",
+            "pytest~=7.3.0",
+            "pytest-cov~=4.0.0",
+            "pytest-mock~=3.10.0",
+            "pytest-xdist~=3.2.1",
+            "pytest-randomly~=3.12.0",
+            "pytest-timeout~=2.1.0",
             "flake8>=5.0.4"
         ]
     },

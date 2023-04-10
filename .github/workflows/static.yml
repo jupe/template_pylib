@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 env:
-    PYTHON_VERSION: 3.10
+    PYTHON_VERSION:  3.10.5
 jobs:
     static:
         runs-on: ubuntu-latest

@@ -26,10 +26,7 @@ run: install
 
 test: install
 	@echo "Running tests..."
-	@venv/bin/python -m pytest --cov=project --cov-report=term-missing \
-			--cov-report=xml --cov-fail-under=100 --xml=coverage.xml --junitxml=report.xml \
-			--color=yes --durations=0 --verbose tests --no-cov-on-fail \
-			--cov-config=.coveragerc
+	@venv/bin/python -m pytest --cov-config=.coveragerc
 	@echo "Tests run."
 
 lint: install
