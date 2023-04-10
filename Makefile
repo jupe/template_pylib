@@ -46,3 +46,10 @@ _create-venv:
 	@echo "Creating virtual environment..."
 	@python3 -m venv venv
 	@echo "Virtual environment created."
+
+release: install
+	@echo "Releasing project..."
+	@venv/bin/python -m bumpversion --new-version $(version)
+	@venv/bin/python setup.py sdist bdist_wheel
+	@venv/bin/python -m twine upload dist/*
+	@echo "Project released."
