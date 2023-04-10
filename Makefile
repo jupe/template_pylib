@@ -1,3 +1,13 @@
+ifeq ($(OS),Windows_NT)
+    PYTHON = python
+    VENV_BIN = venv\Scripts
+    RMRF = del /q /f 2>nul & rmdir /s /q
+else
+    PYTHON = python3
+    VENV_BIN = venv/bin
+    RMRF = rm -rf
+endif
+
 help:
 	@echo "Usage: make [target]"
 	@echo ""
@@ -12,26 +22,27 @@ help:
 # install project, but ignore if dependencies are already up to date
 install: venv
 	@echo "Installing project..."
-	@venv/bin/pip install -e .[dev]
+	$(VENV_BIN)/pip install -e .[dev]
 	@echo "Project installed."
 
 run: install
 	@echo "Running project..."
-	@venv/bin/python -m project
+	$(VENV_BIN)/python -m project
 	@echo "Project run."
 
 test: install
 	@echo "Running tests..."
-	@venv/bin/python -m pytest --cov-config=.coveragerc
+	$(VENV_BIN)/python -m pytest --cov-config=.coveragerc
 	@echo "Tests run."
 
 lint: install
-	@echo "Running linter..."
-    #@venv/bin/python -m flake8 src --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+	echo "Running linter..."
+	$(VENV_BIN)/python -m flake8 --config=.flake8
 	@echo "Linter run."
+
 clean:
 	@echo "Cleaning project..."
-	@rm -rf venv
+	$(RMRF)  venv
 	@echo "Project cleaned."
 
 venv: requirements-dev.txt Makefile
@@ -44,11 +55,11 @@ create-venv:
 
 _create-venv:
 	@echo "Creating virtual environment..."
-	@python3 -m venv venv
+	python -m venv venv
 	@echo "Virtual environment created."
 
 release: install
 	@echo "Releasing project.."
-	@venv/bin/python setup.py sdist bdist_wheel
-	@venv/bin/python -m twine upload dist/*
+	$(VENV_BIN)/python setup.py sdist bdist_wheel
+	$(VENV_BIN)/python -m twine upload dist/*
 	@echo "Project released."
