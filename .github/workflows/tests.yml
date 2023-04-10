@@ -1,0 +1,25 @@
+name: unit tests
+
+on:
+  workflow_call:
+
+jobs:
+    tests:
+        runs-on: ${{ matrix.os }}
+        strategy:
+          fail-fast: false  # keep going if one job fails
+          matrix:
+              python-version: ['3.7', '3.8', '3.9', '3.10']
+              os: [ubuntu-latest, macos-latest, windows-latest]
+        steps:
+        - uses: actions/checkout@v3
+        - name: Set up Python ${{ matrix.python-version }}
+          uses: actions/setup-python@v3
+          with:
+            python-version: ${{ matrix.python-version }}
+        - name: Install dependencies
+          shell: bash
+          run: make install
+        - name: Test with pytest
+          shell: bash
+          run: make test

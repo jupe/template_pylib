@@ -1,0 +1,23 @@
+name: Release flow
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+        default: 'patch'
+
+jobs:
+    static:
+      uses: ./.github/workflows/static.yml
+      secrets: inherit
+    tests:
+        uses: ./.github/workflows/tests.yml
+        secrets: inherit
+    release:
+        needs: [static, tests]
+        uses: ./.github/workflows/release.yml
+        secrets: inherit
+        with:
+          version: ${{ github.event.inputs.version }}

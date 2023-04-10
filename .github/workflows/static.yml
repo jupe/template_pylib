@@ -1,0 +1,22 @@
+# static analysis job
+name: Static analysis
+
+on:
+  workflow_call:
+
+env:
+    PYTHON_VERSION:  3.10.5
+jobs:
+    static:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v3
+        - name: Set up Python ${{ env.PYTHON_VERSION }}
+          uses: actions/setup-python@v3
+          with:
+            python-version: ${{ env.PYTHON_VERSION }}
+        - name: Install dependencies
+          run: make install
+        - name: Lint with flake8
+          run: make lint
+
