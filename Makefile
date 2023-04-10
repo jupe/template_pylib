@@ -48,8 +48,7 @@ _create-venv:
 	@echo "Virtual environment created."
 
 release: install
-	@echo "Releasing project..."
-	@venv/bin/python -m bumpversion --new-version $(version)
+	@echo "Releasing project.."
 	@venv/bin/python setup.py sdist bdist_wheel
 	@venv/bin/python -m twine upload dist/*
 	@echo "Project released."
