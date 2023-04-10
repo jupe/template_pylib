@@ -11,10 +11,6 @@ help:
 
 # install project, but ignore if dependencies are already up to date
 install: venv
-	@echo "Checking for project installation..."
-	@venv/bin/pip install -e .[dev] --upgrade --no-deps || make _install
-
-_install:
 	@echo "Installing project..."
 	@venv/bin/pip install -e .[dev]
 	@echo "Project installed."
@@ -38,7 +34,7 @@ clean:
 	@rm -rf venv
 	@echo "Project cleaned."
 
-venv: requirements-dev.txt Makefile venv
+venv: requirements-dev.txt Makefile
 	@make create-venv
 
 # create venv unless it already exists
